@@ -8,5 +8,4 @@ FROM cgr.dev/chainguard/node:latest AS app
 WORKDIR /app
 COPY --from=build /app/ .
 EXPOSE 8080
-ENTRYPOINT ["node"]
-CMD ["server.js"]
+ENTRYPOINT ["node", "server.js"]
