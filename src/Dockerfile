@@ -1,7 +1,12 @@
-FROM node:25-alpine
+FROM node:25-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+FROM cgr.dev/chainguard/node:latest AS app
+WORKDIR /app
+COPY --from=build /app/ .
 EXPOSE 8080
-CMD ["node", "server.js"]
+ENTRYPOINT ["node"]
+CMD ["server.js"]
